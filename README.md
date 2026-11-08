@@ -6,18 +6,20 @@ probado con pytest y ejecutado dentro de un contenedor Docker.
 ## Estructura
 
 ```text
-penguins_app/
-  app/
-    preprocessing.py   # 3 funciones de preprocesamiento
-    main.py            # API FastAPI (/health, /predict)
-  tests/
-    conftest.py        # fixtures: pingüino válido, FakeModel, cliente de pruebas
-    test_preprocessing.py
-    test_api.py
-  penguins_app/evidencias/          # capturas de la ejecución
-  pytest.ini
-  requirements.txt
-  Dockerfile
+mlops-taller-ci-testing/
+  README.md
+  penguins_app/
+    app/
+      preprocessing.py   # 3 funciones de preprocesamiento
+      main.py            # API FastAPI (/health, /predict)
+    tests/
+      conftest.py        # fixtures: pingüino válido, FakeModel, cliente de pruebas
+      test_preprocessing.py
+      test_api.py
+    evidencias/          # capturas de la ejecución
+    pytest.ini
+    requirements.txt
+    Dockerfile
 ```
 
 ## Funciones de preprocesamiento
@@ -52,6 +54,7 @@ por un `FakeModel`, de modo que la API se puede probar sin un modelo entrenado.
 
 **Local:**
 ```bash
+cd penguins_app
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 pytest -v
@@ -59,6 +62,7 @@ pytest -v
 
 **En contenedor** (el Dockerfile ejecuta `pytest` automáticamente):
 ```bash
+cd penguins_app
 docker build -t penguins-unit-tests:0.1 .
 docker run --rm penguins-unit-tests:0.1
 ```
