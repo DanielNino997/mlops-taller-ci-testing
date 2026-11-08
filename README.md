@@ -16,7 +16,7 @@ penguins_app/
     conftest.py        # fixtures: pingüino válido, FakeModel, cliente de pruebas
     test_preprocessing.py
     test_api.py
-  evidencias/          # capturas de la ejecución
+  penguins_app/evidencias/          # capturas de la ejecución
   pytest.ini
   requirements.txt
   Dockerfile
@@ -68,22 +68,22 @@ docker run --rm penguins-unit-tests:0.1
 ## Evidencias
 
 **1. Pruebas de preprocesamiento en la VM (19 passed)**
-![pytest preprocesamiento](evidencias/01_pytest_preprocessing.png)
+![pytest preprocesamiento](01_pytest_preprocessing.png)
 
 **2. Prueba fallando a propósito:** se cambió el límite de masa corporal de 6500 a 6000 g, y la prueba del límite exacto lo detectó.
-![fallo a propósito](evidencias/02_pytest_fallo_a_proposito.png)
+![fallo a propósito](02_pytest_fallo_a_proposito.png)
 
 **3. API corriendo con uvicorn:** `/health` responde 200 y `/predict` responde 503 porque no hay modelo real.
-![API health y predict](evidencias/03_api_health_y_predict_sin_modelo.png)
+![API health y predict](penguins_app/evidencias/03_api_health_y_predict_sin_modelo.png)
 
 **4. Todas las pruebas en la VM (25 passed, Python 3.9)**
-![pytest completo](evidencias/04_pytest_completo_25_pruebas.png)
+![pytest completo](penguins_app/evidencias/04_pytest_completo_25_pruebas.png)
 
 **5. Construcción de la imagen Docker**
-![docker build](evidencias/05_docker_build.png)
+![docker build](penguins_app/evidencias/05_docker_build.png)
 
 **6. Pruebas ejecutadas dentro del contenedor (25 passed, Python 3.11, código de salida 0)**
-![docker run](evidencias/06_docker_run_pytest_contenedor.png)
+![docker run](penguins_app/evidencias/06_docker_run_pytest_contenedor.png)
 
 ## Notas del proceso
 
