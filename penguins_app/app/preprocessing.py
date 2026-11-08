@@ -5,7 +5,7 @@ RANGES = {
     "bill_length_mm": (30.0, 60.0),
     "bill_depth_mm": (13.0, 22.0),
     "flipper_length_mm": (170.0, 235.0),
-    "body_mass_g": (2500.0, 6500.0),
+    "body_mass_g": (2500.0, 6000.0),
 }
 
 VALID_ISLANDS = ["biscoe", "dream", "torgersen"]
