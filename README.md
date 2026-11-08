@@ -68,10 +68,10 @@ docker run --rm penguins-unit-tests:0.1
 ## Evidencias
 
 **1. Pruebas de preprocesamiento en la VM (19 passed)**
-![pytest preprocesamiento](01_pytest_preprocessing.png)
+![pytest preprocesamiento](penguins_app/evidencias/01_pytest_preprocessing.png)
 
 **2. Prueba fallando a propósito:** se cambió el límite de masa corporal de 6500 a 6000 g, y la prueba del límite exacto lo detectó.
-![fallo a propósito](02_pytest_fallo_a_proposito.png)
+![fallo a propósito](penguins_app/evidencias/02_pytest_fallo_a_proposito.png)
 
 **3. API corriendo con uvicorn:** `/health` responde 200 y `/predict` responde 503 porque no hay modelo real.
 ![API health y predict](penguins_app/evidencias/03_api_health_y_predict_sin_modelo.png)
