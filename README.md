@@ -87,3 +87,45 @@ docker run --rm penguins-unit-tests:0.1
 **6. Pruebas ejecutadas dentro del contenedor (25 passed, Python 3.11, código de salida 0)**
 ![docker run](penguins_app/evidencias/06_docker_run_pytest_contenedor.png)
 
+
+---
+
+# Actividad 2 · GitHub Actions — CI con pytest y publicación en Docker Hub
+
+Workflow: [`.github/workflows/ci-cd-unit-tests-dockerhub.yml`](.github/workflows/ci-cd-unit-tests-dockerhub.yml),
+basado en la plantilla del curso, ajustando `paths`, `APP_PATH` e `IMAGE_NAME`.
+
+**Imagen publicada:** https://hub.docker.com/r/dnino97/penguins-unit-tests/tags
+
+## Cómo funciona
+
+- **Disparadores:** `push` a `main` o a ramas `feature/**`, y `pull_request` hacia `main`, solo si cambia algo en `penguins_app/` o en el propio workflow (`paths`).
+- **Job `unit-tests`:** clona el repo, instala Python 3.11 y las dependencias de `requirements.txt`, y ejecuta `pytest`. Si una prueba falla, pytest termina con código de salida 1 y el job queda en rojo.
+- **Job `publish-dockerhub`:** depende de `unit-tests` (`needs`) y solo corre en un push a `main`, es decir, al hacer merge. Inicia sesión con los secretos `DOCKERHUB_USERNAME` y `DOCKERHUB_TOKEN`, construye la imagen y la publica con dos tags: `latest` y el SHA del commit, para poder rastrear qué código generó cada imagen.
+- **Protección de rama:** `main` exige que `unit-tests` pase antes de permitir el merge, sin excepciones para administradores.
+
+## Evidencias
+
+**1. Pull Request #1: `unit-tests` en verde y `publish-dockerhub` omitido (en un PR no se publica)**
+![PR checks](penguins_app/evidencias/A2_02_pr_checks.png)
+
+**2. Ejecución del job `unit-tests` en GitHub (25 passed, Python 3.11)**
+![unit-tests](penguins_app/evidencias/A2_01_unit_tests_job.png)
+
+**3. Merge a `main`: `unit-tests` → `publish-dockerhub`, disparado por push en el commit `2a2865b`**
+![publish main](penguins_app/evidencias/A2_03_publish_dockerhub_summary_main.png)
+
+**4. Imagen en Docker Hub con los tags `latest` y `2a2865b64e972414984b0b2865ba8e884985ab1b`**
+![Docker Hub tags](penguins_app/evidencias/A2_04_dockerhub_tags_latest_sha.png)
+
+## Reto: prueba fallida bloquea el merge
+
+Se cambió a propósito el límite de `body_mass_g` de 6500 a 6000 en una rama `feature/prueba-fallida`.
+La prueba de borde `test_validate_range_acepta_los_limites[6500.0]` falló, el job terminó con código 1,
+y la regla de protección de `main` bloqueó el merge. El PR se cerró sin integrar y no se publicó ninguna imagen.
+
+**PR #2 con los checks requeridos en rojo y el botón de merge deshabilitado**
+![merge bloqueado](penguins_app/evidencias/A2_05_pr_merge_bloqueado.png)
+
+**Log del job fallido (1 failed, 24 passed, exit code 1)**
+![unit-tests fallido](penguins_app/evidencias/A2_06_unit_tests_fallido.png)
