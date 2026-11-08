@@ -1,5 +1,3 @@
-cd ~/mlops-taller-ci-testing/penguins_app
-cat > README.md << 'EOF'
 # Actividad 1 · Pruebas unitarias con pytest — Penguins API
 
 Módulo de preprocesamiento para el dataset Palmer Penguins, expuesto en una API con FastAPI,
