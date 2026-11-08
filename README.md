@@ -85,9 +85,3 @@ docker run --rm penguins-unit-tests:0.1
 **6. Pruebas ejecutadas dentro del contenedor (25 passed, Python 3.11, código de salida 0)**
 ![docker run](penguins_app/evidencias/06_docker_run_pytest_contenedor.png)
 
-## Notas del proceso
-
-- El puerto 8000 estaba ocupado por la API de diabetes del Proyecto 2, que había quedado corriendo; se detuvo antes de levantar esta API.
-- El primer `docker build` falló por falta de espacio en `/var` (100 %). Se liberaron unos 8 GB eliminando imágenes y caché de Docker que no estaban en uso.
-- El aviso (*warning*) que aparece en el contenedor viene de la librería `starlette`, no del código del taller, y no afecta las pruebas.
-EOF
